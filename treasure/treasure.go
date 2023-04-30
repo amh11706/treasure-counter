@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 	"treasure-counter/config"
+	"treasure-counter/log"
 	"treasure-counter/sheets"
 	"treasure-counter/window"
 
@@ -45,6 +46,7 @@ func (e *KhEntry) Reset() {
 	e.id = uuid.New()
 	e.oozInTurns = 5
 	e.turnsLeft = 91
+	log.ResetBuffer()
 
 	e.boatLock <- struct{}{}
 	defer func() { <-e.boatLock }()
@@ -93,6 +95,12 @@ func (boat *boatStatus) scanHud(now time.Time) (treasureRow []interface{}) {
 	}
 
 	freshTurn, timerSeen := boat.updateFreshTurn(hdc, now)
+	if timerSeen {
+		if now.Sub(currentEntry.timerLastSeen) > 15*time.Second {
+			currentEntry.Reset()
+		}
+		currentEntry.timerLastSeen = now
+	}
 	if freshTurn {
 		if boat.turnsAlive < 0 {
 			boat.turnsAlive = 0
@@ -101,9 +109,6 @@ func (boat *boatStatus) scanHud(now time.Time) (treasureRow []interface{}) {
 		if boat.turnsAlive > 0 || boat.moves != [4]byte{} {
 			boat.turnsAlive++
 		}
-	}
-	if timerSeen {
-		currentEntry.timerLastSeen = now
 	}
 	if !boat.checkReset(hdc, w.Rect) {
 		boat.Treasure = boat.scanTreasure(hdc, w.Rect)
@@ -129,15 +134,13 @@ func (boat *boatStatus) scanHud(now time.Time) (treasureRow []interface{}) {
 	}
 	if boat.checkMaxDamage(hdc, w.Rect) {
 		boat.timesSank++
-		messageLog = append(messageLog, fmt.Sprintf("%s sank in %s", boat.window.Name, turnsToTime(int(boat.turnsAlive))))
+		log.AppendLog(fmt.Sprintf("%s sank in %s", boat.window.Name, turnsToTime(int(boat.turnsAlive))))
 		return
 	}
 	if boat.Treasure == 0 {
 		return
 	}
-	messageLog = append(messageLog, fmt.Sprintf("%s loaded %s in %s",
-		boat.window.Name, formatTreasure(boat.Treasure), turnsToTime(int(boat.turnsAlive))),
-	)
+	log.AppendLog(fmt.Sprintf("%s loaded %s in %s", boat.window.Name, log.FormatTreasure(boat.Treasure), turnsToTime(int(boat.turnsAlive))))
 	if boat.Treasure > 1 {
 		boat.treasureLoaded[boat.Treasure-2]++
 	}
@@ -167,7 +170,6 @@ func scanBoats(now time.Time) {
 				logger.Check(sheets.PushRowsToSheet(rowsToPush))
 			}()
 		}
-		WriteLogToFile()
 	}
 	g.Update()
 }

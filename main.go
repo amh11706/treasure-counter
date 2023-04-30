@@ -4,6 +4,7 @@ import (
 	"context"
 	"syscall"
 	"treasure-counter/config"
+	"treasure-counter/log"
 	"treasure-counter/sheets"
 	"treasure-counter/treasure"
 	"treasure-counter/window"
@@ -32,6 +33,7 @@ func main() {
 	println("started")
 	go shutdown.Watch()
 	go window.ScanWindows()
+	go log.WriteLogToFile()
 
 	mainWnd = g.NewMasterWindow("Treasure Counter", 350, 600, g.MasterWindowFlagsFloating)
 

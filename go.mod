@@ -1,4 +1,4 @@
-module treasure-counter
+module github.com/amh11706/treasure-counter
 
 go 1.19
 

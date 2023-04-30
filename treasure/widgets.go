@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"treasure-counter/config"
 	"treasure-counter/hyperlink"
+	"treasure-counter/log"
 	"treasure-counter/sheets"
 	"treasure-counter/window"
 
@@ -79,8 +80,8 @@ func BuildWidgets() []g.Widget {
 
 		g.Separator(),
 		g.TreeNode("Log").Layout(
-			g.Checkbox("Output to "+LogFileName, &config.DefaultSettings.LogToFile).OnChange(config.Save),
-			g.ListBox("Log", messageLog).Size(300, 150),
+			g.Checkbox("Output to "+log.LogFileName, &config.DefaultSettings.LogToFile).OnChange(config.Save),
+			g.ListBox("Log", log.MessageLog).Size(300, 150),
 		),
 	}
 	return widgets
