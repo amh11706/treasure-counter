@@ -3,7 +3,7 @@ Treasure counter is a simple program that counts how many of each treasure you l
 It currently only runs on windows, but contributions are welcome to make it run on other platforms.
 
 # How do I use it?
-1. Download the latest release from https://drive.google.com/drive/folders/12qm8iM1_fxo3S2v852UqfsRGnGbBQ3XA?usp=share_link
+1. Download the latest release from [the right side of this github page.](https://github.com/amh11706/treasure-counter/releases) You want the .exe file.
 2. Run the program and click ok to any windows defender warnings (This is because the program is not signed and it is not worth the fee for such a small project).
 3. The program will begin looking for Puzzle Pirate windows and scan the hud pixels to detect when you load a treasure. It works for as many clients as you have open.
 4. Enable "Push to sheet" to automatically upload your scores to the leaderboards available at https://docs.google.com/spreadsheets/d/1yyY2hWj6rqEz_G7UnmF6PdQG1_ZyQxcsh-0SbWQiLoc/edit?usp=sharing. Other than this feature, the program does not communicate with the internet in any way.
