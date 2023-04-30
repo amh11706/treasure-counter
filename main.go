@@ -3,11 +3,12 @@ package main
 import (
 	"context"
 	"syscall"
-	"treasure-counter/config"
-	"treasure-counter/log"
-	"treasure-counter/sheets"
-	"treasure-counter/treasure"
-	"treasure-counter/window"
+
+	"github.com/amh11706/treasure-counter/config"
+	"github.com/amh11706/treasure-counter/log"
+	"github.com/amh11706/treasure-counter/sheets"
+	"github.com/amh11706/treasure-counter/treasure"
+	"github.com/amh11706/treasure-counter/window"
 
 	g "github.com/AllenDang/giu"
 	"github.com/amh11706/shutdown"

@@ -4,7 +4,8 @@ import (
 	"image/color"
 	"sort"
 	"time"
-	"treasure-counter/window"
+
+	"github.com/amh11706/treasure-counter/window"
 
 	g "github.com/AllenDang/giu"
 	"github.com/TheTitanrain/w32"

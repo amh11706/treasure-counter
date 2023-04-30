@@ -2,11 +2,12 @@ package treasure
 
 import (
 	"fmt"
-	"treasure-counter/config"
-	"treasure-counter/hyperlink"
-	"treasure-counter/log"
-	"treasure-counter/sheets"
-	"treasure-counter/window"
+
+	"github.com/amh11706/treasure-counter/config"
+	"github.com/amh11706/treasure-counter/hyperlink"
+	"github.com/amh11706/treasure-counter/log"
+	"github.com/amh11706/treasure-counter/sheets"
+	"github.com/amh11706/treasure-counter/window"
 
 	g "github.com/AllenDang/giu"
 )

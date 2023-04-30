@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"os"
 	"time"
-	"treasure-counter/config"
+
+	"github.com/amh11706/treasure-counter/config"
 
 	"github.com/amh11706/logger"
 )
@@ -38,9 +39,13 @@ func FormatTreasure(treasure byte) string {
 
 var MessageLog []string
 var fileBuffer = bytes.NewBuffer(make([]byte, 0, 1024))
-var fileStarted bool
 
 func AppendLog(message string) {
+	if len(MessageLog) == 0 {
+		newEntryMessage := "----- new entry -----"
+		MessageLog = append(MessageLog, newEntryMessage)
+		fileBuffer.WriteString(newEntryMessage + "\n")
+	}
 	MessageLog = append(MessageLog, message)
 	timeString := time.Now().Format("2006-01-02 15:04:05")
 	fileBuffer.WriteString(fmt.Sprintf("%s %s\n", timeString, message))
@@ -62,10 +67,6 @@ func WriteLogToFile() {
 }
 
 func appendLogToFile() {
-	if !fileStarted {
-		fileStarted = true
-		AppendLog("----- new entry -----")
-	}
 	f, err := os.OpenFile(LogFileName, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
 	if logger.Check(err) {
 		return
