@@ -29,7 +29,7 @@ func BuildWidgets() []g.Widget {
 			currentEntry.Reset()
 		}),
 		g.Row(
-			g.SliderInt(&currentEntry.turnsLeft, 0, 90).Label("Time left:"),
+			g.Label("Time left:"),
 			g.Label(turnsToTime(int(currentEntry.turnsLeft))),
 		),
 		g.SliderInt(&currentEntry.oozInTurns, 0, 5).Label("Ooz in"),
