@@ -24,7 +24,7 @@ func BuildWidgets() []g.Widget {
 	myBoat := getBoat(window.ActiveWindow, false)
 
 	widgets := []g.Widget{
-		g.Label("Treasure Counter v1.0.0"),
+		g.Label("Treasure Counter v1.0.1"),
 		g.Button("Reset").OnClick(func() {
 			currentEntry.Reset()
 		}),

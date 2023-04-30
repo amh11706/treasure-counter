@@ -95,15 +95,15 @@ func (boat *boatStatus) updateFreshTurn(dcSrc w32.HDC, now time.Time) (freshTurn
 	freshTurn = boat.checkReset(dcSrc, boat.window.Rect)
 	if freshTurn {
 		boat.checkRespawn = true
-		timerSeen = true
 	} else {
 		c := boat.window.RGBAAt(dcSrc, 300, boat.window.Height-84)
 		if window.FuzzyMatch(c, timerColor, 5) {
-			freshTurn, timerSeen = true, true
+			freshTurn = true
 		} else if !window.FuzzyMatch(c, timerBgColor, 5) {
-			return false, true
+			return false, false
 		}
 	}
+	timerSeen = true
 	if boat.freshTurn == freshTurn {
 		return false, timerSeen
 	}
