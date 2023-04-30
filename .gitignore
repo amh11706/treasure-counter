@@ -1,0 +1,4 @@
+*.exe
+settings.json
+secret.*
+treasure_log.txt
